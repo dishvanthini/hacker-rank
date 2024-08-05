@@ -1,50 +1,68 @@
 #include <stdio.h>
 
-void readArray(int arr[], int n);
-void displayArray(int arr[], int n);
-void selectionSort(int arr[], int n);
+// Function prototypes
+void read(int a[], int n);
+void display(int a[], int n);
+void selectionSort(int a[], int n);
 
 int main()
 {
-    int arr[4];
-    readArray(arr, 4);
+    int a[4]; // Declare an array to hold 4 integers
+
+    // Read the array elements from the user
+    read(a, 4);
     printf("Original array: ");
-    displayArray(arr, 4);
-    selectionSort(arr, 4);
+    display(a, 4); // Display the original array
+
+    // Sort the array using selection sort
+    selectionSort(a, 4);
+
+    // Print the sorted array
     printf("Sorted array: ");
-    displayArray(arr, 4);
+    display(a, 4);
 
     return 0;
 }
 
-void readArray(int arr[], int n)
+// Function to read array elements from the user
+void read(int a[], int n)
 {
     printf("Enter %d elements for the array:\n", n);
     for(int i = 0; i < n; i++) {
-        scanf("%d", &arr[i]);
+        scanf("%d", &a[i]); // Read each element and store it in the array
     }
 }
 
-void displayArray(int arr[], int n)
+// Function to display array elements
+void display(int a[], int n)
 {
     for(int i = 0; i < n; i++) {
-        printf("%d ", arr[i]);
+        printf("%d ", a[i]); // Print each element followed by a space
     }
-    printf("\n");
+    printf("\n"); // Print a newline at the end
 }
 
-void selectionSort(int arr[], int n)
+// Function to sort the array using selection sort
+void selectionSort(int a[], int n)
 {
-    int i, j, min_idx, temp;
-    for (i = 0; i < n-1; i++) {
-        min_idx = i;
-        for (j = i+1; j < n; j++) {
-            if (arr[j] < arr[min_idx]) {
-                min_idx = j;
+    int i, j, minIdx;
+
+    // Move through the entire array
+    for (i = 0; i < n - 1; i++) {
+        minIdx = i; // Assume the current position is the minimum
+
+        // Find the smallest element in the remaining unsorted array
+        for (j = i + 1; j < n; j++) {
+            if (a[j] < a[minIdx]) {
+                minIdx = j; // Update minIdx if a smaller element is found
             }
         }
-        temp = arr[min_idx];
-        arr[min_idx] = arr[i];
-        arr[i] = temp;
+
+        // Swap the found smallest element with the first element of the unsorted portion
+        if (minIdx != i) {
+            int temp = a[i];
+            a[i] = a[minIdx];
+            a[minIdx] = temp;
+        }
     }
 }
